@@ -17,9 +17,9 @@ resource "aws_instance" "moninstanceec2" {
 
 resource "aws_security_group" "moninstanceec2"{
   ingress {
-    from_port = 80
+    from_port = 8888
     protocol = "tcp"
-    to_port = 80
+    to_port = 8888
     cidr_blocks = ["0.0.0.0/0"]
   }
   
@@ -30,12 +30,7 @@ resource "aws_security_group" "moninstanceec2"{
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    from_port = 443
-    protocol = "tcp"
-    to_port = 443
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  
 
 
 }

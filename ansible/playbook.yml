@@ -1,4 +1,4 @@
----
+﻿---
 - hosts: moninstanceec2
   become: true
   vars_files:
@@ -37,12 +37,12 @@
     # Creates the number of containers defined by the variable create_containers, using values from vars file
     - name: Create and start container
       docker_container:
-		name: "{{ default_container_name }}{{ item }}"
+        name: "{{ default_container_name }}{{ item }}"
         image: "{{ default_container_image }}"
-		ports:
-			- "8888:8888"
-		volumes:
-			- /c/Users/<USER WINDOWS>/.aws:/credentials/:ro
+        ports:
+            - "8888:8888"
+        volumes:
+            - /c/Users/<USER WINDOWS>/.aws:/credentials/:ro
         #command: "{{ default_container_command }}"
         state: started
 		
