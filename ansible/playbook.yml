@@ -35,10 +35,15 @@
         source: pull
 
     # Creates the number of containers defined by the variable create_containers, using values from vars file
-    - name: Create default containers
+    - name: Create and start container
       docker_container:
-        name: "{{ default_container_name }}{{ item }}"
+		name: "{{ default_container_name }}{{ item }}"
         image: "{{ default_container_image }}"
+		ports:
+			- "8888:8888"
+		volumes:
+			- /c/Users/<USER WINDOWS>/.aws:/credentials/:ro
         #command: "{{ default_container_command }}"
-        state: present
-      with_sequence: count={{ create_containers }}
+        state: started
+		
+      
