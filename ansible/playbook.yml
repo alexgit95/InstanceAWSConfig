@@ -45,5 +45,3 @@
             - /c/Users/<USER WINDOWS>/.aws:/credentials/:ro
         #command: "{{ default_container_command }}"
         state: started
-		
-      
