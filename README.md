@@ -17,9 +17,45 @@ Verifier que l'on a bien ssh/id_rsa.pub et ssh/id_rsa
 
 Lancer : 
 
+```
 terraform init
 
-terraform deploy
+terraform apply
+```
+
+## Se connecter en ssh à la machine pour installer python
+
+```
+sudo apt-get install python
+```
+
+## Installation ansible
+
+Se placer dans le repertoire ansible
+
+```
+cd ansible
+```
+
+Modifier le fichier hosts pour avoir l'ip de la nouvelle instance
+
+Puis lancer :
+
+```
+ansible-playbook -i ./hosts playbook.yml
+```
+
+
+
+
+
+
+
+
+
+
+
+#A revoir
 
 ## Ansible inventory 
 
