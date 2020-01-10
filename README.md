@@ -16,7 +16,9 @@ Generer une paire de cle ssh :
 
 https://www.hostinger.fr/tutoriels/generer-cle-ssh/
 
-Puis les placer un repertoire ssh/ du repertoire InstanceAWSConfig
+```
+ssh-keygen -t rsa -f ssh/id_rsa
+```
 
 Verifier que l'on a bien ssh/id_rsa.pub et ssh/id_rsa
 
@@ -31,11 +33,6 @@ terraform init
 terraform apply
 ```
 
-## Se connecter en ssh à la machine pour installer python
-
-```
-sudo apt-get install python
-```
 
 ## Installation ansible
 
@@ -54,7 +51,21 @@ ansible-playbook -i ./hosts playbook.yml
 ```
 
 
+# TODO
 
+Lancer la creation de l'instance via terraform avec l'image ubuntu
+
+se connecter en ssh à la machine et installer python
+
+se deconnecter
+
+Creer une ami
+
+Une fois l'ami cree, detruire l'instance en cours
+
+modifier terraform pour prendre l'id de la nouvelle ami
+
+et relancer tout le processus terraform/ansible
 
 
 
@@ -72,14 +83,7 @@ Telecharger une release
 voir https://github.com/adammck/terraform-inventory
 
 
-pour lancer ansible :
+pour lancer ansible avec le dynamic inventory :
  
 ansible-playbook --inventory-file=/path/to/terraform-inventory ansible/playbook.yml
 
-
-## test 10/01
-sur la vm amazon il faut installer à la main python et pip
-
-puis aller dans le repertoire ansible et faire 
-
-ansible-playbook -i ./hosts playbook.yml
