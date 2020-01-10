@@ -2,6 +2,16 @@
 
 Terraform + ansible
 
+## Pre requis:
+
+Generer une paire de cle ssh :
+
+https://www.hostinger.fr/tutoriels/generer-cle-ssh/
+
+Puis les placer un repertoire ssh/ du repertoire InstanceAWSConfig
+
+Verifier que l'on a bien ssh/id_rsa.pub et ssh/id_rsa
+
 
 ## Terraform :
 
