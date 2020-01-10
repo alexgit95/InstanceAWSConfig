@@ -1,8 +1,16 @@
 # InstanceAWSConfig
 
-Terraform + ansible
+## Objet
+
+Terraform + ansible + docker
 
 ## Pre requis:
+
+Se placer dans le repertoire Infra :
+
+```
+cd InstanceAWSConfig
+```
 
 Generer une paire de cle ssh :
 
@@ -55,7 +63,7 @@ ansible-playbook -i ./hosts playbook.yml
 
 
 
-#A revoir
+# A revoir
 
 ## Ansible inventory 
 
