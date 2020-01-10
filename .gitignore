@@ -3,3 +3,4 @@
 infos
 terraform.tfstate.backup
 terraform.tfstate
+ssh/*
