@@ -35,10 +35,13 @@
     - name: Install Docker Module for Python
       pip:
         name: docker
-
+    - name: Creates directory
+      file:
+        path: /home/ubuntu/.aws
+        state: directory
     - name : Copy AWS credential file
       copy :
-        src : $HOME/.aws/credentials 
+        src : /home/pi/.aws/credentials 
         dest : /home/ubuntu/.aws/credentials.aws
         owner : ubuntu
         group: ubuntu

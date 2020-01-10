@@ -11,7 +11,7 @@ resource "aws_key_pair" "moninstanceec2" {
 
 
 resource "aws_instance" "moninstanceec2" {
-  ami = "ami-087855b6c8b59a9e4"
+  ami = "ami-0d7e30ce437a761bb"
   instance_type = "t2.micro"
   key_name= "${aws_key_pair.moninstanceec2.key_name}"
   count = 1
@@ -36,7 +36,13 @@ resource "aws_security_group" "moninstanceec2"{
     to_port = 22
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+    
+  }
   
 
 
