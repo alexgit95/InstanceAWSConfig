@@ -52,7 +52,7 @@
     - name: Create and start container
       docker_container:
         name: docker
-        image: alexyop/testaws:0.0.3
+        image: alexyop/testaws:0.1.0
         ports:
             - "8888:8888"
         volumes:

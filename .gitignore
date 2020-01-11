@@ -4,3 +4,4 @@ infos
 terraform.tfstate.backup
 terraform.tfstate
 ssh/*
+ansible/playbook.retry
