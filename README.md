@@ -30,60 +30,11 @@ Lancer :
 ```
 terraform init
 
-terraform apply
+terraform apply -auto-approve && export ANSIBLE_HOST_KEY_CHECKING=False && ansible-playbook -i ./hosts  ansible/playbook.yml
 ```
-
-
-## Installation ansible
-
-Se placer dans le repertoire ansible
+En cas de problème Unable to acquire the dpkg frontend lock, relancer uniquement :
 
 ```
-cd ansible
-```
-
-Modifier le fichier hosts pour avoir l'ip de la nouvelle instance
-
-Puis lancer :
+export ANSIBLE_HOST_KEY_CHECKING=False && ansible-playbook -i ./hosts  ansible/playbook.yml
 
 ```
-ansible-playbook -i ./hosts playbook.yml
-```
-
-
-# TODO
-
-Lancer la creation de l'instance via terraform avec l'image ubuntu
-
-se connecter en ssh à la machine et installer python
-
-se deconnecter
-
-Creer une ami
-
-Une fois l'ami cree, detruire l'instance en cours
-
-modifier terraform pour prendre l'id de la nouvelle ami
-
-et relancer tout le processus terraform/ansible
-
-
-
-
-
-
-
-
-# A revoir
-
-## Ansible inventory 
-
-Telecharger une release
-
-voir https://github.com/adammck/terraform-inventory
-
-
-pour lancer ansible avec le dynamic inventory :
- 
-ansible-playbook --inventory-file=/path/to/terraform-inventory ansible/playbook.yml
-
