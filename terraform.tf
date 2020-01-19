@@ -10,11 +10,13 @@ resource "aws_key_pair" "moninstanceec2" {
 
 
 
+
+
 resource "aws_instance" "moninstanceec2" {
   ami = "ami-0d7e30ce437a761bb"
   instance_type = "t2.micro"
   key_name= aws_key_pair.moninstanceec2.key_name
-  count = 1
+  /*count = 1*/
   security_groups = [aws_security_group.moninstanceec2.name]
   tags = {
     Owner = "alex"
@@ -32,15 +34,17 @@ resource "aws_instance" "moninstanceec2" {
 
     inline = [
       "sudo apt-get install python",
-      "sleep 120"
+      "echo attente 3min",
+      "sleep 120",
+      "echo attente 1min",
+      "sleep 30",
+      "echo attente 30s",
+      "sleep 30"
 
     ]
   }
 
-  provisioner "local-exec" {
-    
-    command = "echo '[all]\n${self.public_ip}\n[all:vars]\nansible_ssh_private_key_file=ssh/id_rsa' > hosts"
-  }
+
 }
 
 
@@ -66,8 +70,22 @@ resource "aws_security_group" "moninstanceec2"{
     cidr_blocks     = ["0.0.0.0/0"]
     
   }
-  
+
 
 
 }
+
+resource "aws_eip_association" "moninstanceec2" {
+  instance_id   = aws_instance.moninstanceec2.id
+  allocation_id = "eipalloc-02117ce1493297136"
+}
+
+resource "null_resource" "example2" {
+  provisioner "local-exec" {
+
+    command = "echo '[all]\n${aws_eip_association.moninstanceec2.public_ip}\n[all:vars]\nansible_ssh_private_key_file=ssh/id_rsa' > hosts"
+  }
+}
+
+
 
