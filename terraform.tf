@@ -1,6 +1,6 @@
 provider "aws" {
-  region = "${var.region-aws}"
-  shared_credentials_file = "${var.shared_cred_file}"
+  region = var.region-aws
+  shared_credentials_file = var.shared_cred_file
 }
 
 
@@ -13,14 +13,37 @@ resource "aws_key_pair" "moninstanceec2" {
 resource "aws_instance" "moninstanceec2" {
   ami = "ami-0d7e30ce437a761bb"
   instance_type = "t2.micro"
-  key_name= "${aws_key_pair.moninstanceec2.key_name}"
+  key_name= aws_key_pair.moninstanceec2.key_name
   count = 1
-  security_groups = ["${aws_security_group.moninstanceec2.name}"]
+  security_groups = [aws_security_group.moninstanceec2.name]
   tags = {
     Owner = "alex"
-    Name = "${var.nom_instance}"
+    Name = var.nom_instance
+  }
+
+
+  provisioner "remote-exec" {
+    connection {
+      type     = "ssh"
+      user     = "ubuntu"
+      private_key = "${file("ssh/id_rsa")}"
+      host     = self.public_ip
+    }
+
+    inline = [
+      "sudo apt-get install python",
+      "sleep 120"
+
+    ]
+  }
+
+  provisioner "local-exec" {
+    
+    command = "echo '[all]\n${self.public_ip}\n[all:vars]\nansible_ssh_private_key_file=ssh/id_rsa' > hosts"
   }
 }
+
+
 
 resource "aws_security_group" "moninstanceec2"{
   ingress {

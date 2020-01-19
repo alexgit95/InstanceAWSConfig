@@ -3,5 +3,9 @@
 infos
 terraform.tfstate.backup
 terraform.tfstate
-ssh/*
+ssh/id_rsa
+ssh/id_rsa.pub
 ansible/playbook.retry
+hosts
+InstanceAWSConfig.iml
+/.terraform.tfstate.lock.info

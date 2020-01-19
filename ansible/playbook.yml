@@ -41,7 +41,7 @@
         state: directory
     - name : Copy AWS credential file
       copy :
-        src : /home/pi/.aws/credentials 
+        src : /root/.aws/credentials 
         dest : /home/ubuntu/.aws/credentials.aws
         owner : ubuntu
         group: ubuntu
