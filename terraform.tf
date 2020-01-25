@@ -33,13 +33,13 @@ resource "aws_instance" "moninstanceec2" {
     }
 
     inline = [
-      "sudo apt-get install python",
+      "sudo apt-get install python"/*,
       "echo attente 3min",
       "sleep 120",
       "echo attente 1min",
       "sleep 30",
       "echo attente 30s",
-      "sleep 30"
+      "sleep 30"*/
 
     ]
   }
@@ -54,6 +54,12 @@ resource "aws_security_group" "moninstanceec2"{
     from_port = 8888
     protocol = "tcp"
     to_port = 8888
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port = 8899
+    protocol = "tcp"
+    to_port = 8899
     cidr_blocks = ["0.0.0.0/0"]
   }
   
