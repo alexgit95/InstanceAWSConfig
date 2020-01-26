@@ -35,9 +35,17 @@
     - name: Install Docker Module for Python
       pip:
         name: docker
-    - name: Creates directory
+    - name: Creates aws directory
       file:
         path: /home/ubuntu/.aws
+        state: directory
+    - name: Creates properties directory
+      file:
+        path: /home/ubuntu/properties
+        state: directory
+    - name: Creates certificate directory
+      file:
+        path: /home/ubuntu/certificats
         state: directory
     - name : Copy AWS credential file
       copy :
@@ -46,6 +54,20 @@
         owner : ubuntu
         group: ubuntu
         mode : '0400'
+    - name: Copy GeoPositions properties file
+      copy:
+        src: /root/properties/props-geopositions.properties
+        dest: /home/ubuntu/properties/props-geopositions.properties
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+    - name: Copy Certificate file
+      copy:
+        src: /root/certificats/letsencrypt.jks
+        dest: /home/ubuntu/certificats/letsencrypt.jks
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
 
 
     # Creates the number of containers defined by the variable create_containers, using values from vars file
@@ -63,10 +85,12 @@
     - name: Create and start container positions
       docker_container:
         name: dockerpositions
-        image: alexyop/mypositions:0.0.1
+        image: alexyop/mypositions:latest
         ports:
           - "8899:8899"
         volumes:
           - /home/ubuntu/.aws/:/credentials/:ro
+          - /home/ubuntu/properties/:/properties/:ro
+          - /home/ubuntu/certificats/:/certificats/:ro
           #command: "{{ default_container_command }}"
         state: started
