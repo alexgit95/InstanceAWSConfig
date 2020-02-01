@@ -54,13 +54,7 @@
         owner : ubuntu
         group: ubuntu
         mode : '0400'
-    - name: Copy GeoPositions properties file
-      copy:
-        src: /root/properties/props-geopositions.properties
-        dest: /home/ubuntu/properties/props-geopositions.properties
-        owner: ubuntu
-        group: ubuntu
-        mode: '0755'
+
     - name: Copy Certificate file
       copy:
         src: /root/certificats/letsencrypt.jks
@@ -68,6 +62,27 @@
         owner: ubuntu
         group: ubuntu
         mode: '0755'
+    - name: Copy P12 file
+      copy:
+        src: /root/certificats/mycertif.p12
+        dest: /home/ubuntu/certificats/mycertif.p12
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+
+
+    - name: Copy portail config file
+      copy:
+        src: /root/properties/{{ item }}
+        dest: /home/ubuntu/properties/
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+      with_items:
+        - configuration-portail.properties
+        - configuration-portail-secrets.properties
+        - configuration-portail-ssl.properties
+
 
 
     # Creates the number of containers defined by the variable create_containers, using values from vars file
@@ -93,4 +108,14 @@
           - /home/ubuntu/properties/:/properties/:ro
           - /home/ubuntu/certificats/:/certificats/:ro
           #command: "{{ default_container_command }}"
+        state: started
+    - name: Create and start container portail
+      docker_container:
+        name: dockerportail
+        image: alexyop/portail:latest
+        ports:
+          - "443:7777"
+        volumes:
+          - /home/ubuntu/properties/:/properties/:ro
+          - /home/ubuntu/certificats/:/certificats/:ro
         state: started
