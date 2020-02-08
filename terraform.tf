@@ -65,6 +65,14 @@ resource "aws_security_group" "moninstanceec2"{
     self = true
   }
 
+  ingress {
+    from_port = 8877
+    protocol = "tcp"
+    to_port = 8877
+    /*cidr_blocks = ["0.0.0.0/0"]*/
+    self = true
+  }
+
 
   ingress {
     from_port = 443
@@ -106,7 +114,7 @@ resource "null_resource" "example2" {
 resource "null_resource" "configportail" {
   provisioner "local-exec" {
 
-    command = "echo 'ip.geoposition=${aws_eip_association.moninstanceec2.private_ip_address}\nport.geoposition=8899\nip.myphotos=${aws_eip_association.moninstanceec2.private_ip_address}\nport.myphotos=8888' > /root/properties/configuration-portail.properties"
+    command = "echo 'ip.geoposition=${aws_eip_association.moninstanceec2.private_ip_address}\nport.geoposition=8899\nip.myphotos=${aws_eip_association.moninstanceec2.private_ip_address}\nport.myphotos=8888\nip.compte=${aws_eip_association.moninstanceec2.private_ip_address}\nport.compte=8877' > /root/properties/configuration-portail.properties"
   }
 }
 
