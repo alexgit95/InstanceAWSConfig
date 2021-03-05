@@ -86,21 +86,22 @@
 
 
 #     Creates the number of containers defined by the variable create_containers, using values from vars file
-    - name: Create and start container photos
-      docker_container:
-        name: dockerphotos
-        image: alexyop/testaws:0.1.0
-        ports:
-            - "8888:8888"
-        volumes:
-            - /home/ubuntu/.aws/:/credentials/:ro
-       #command: "{{ default_container_command }}"
-        state: started
+#    - name: Create and start container photos
+#      docker_container:
+#        name: dockerphotos
+#        image: alexyop/testaws:0.1.0
+#        pull: yes
+#        ports:
+#            - "8888:8888"
+#        volumes:
+#            - /home/ubuntu/.aws/:/credentials/:ro
+#        state: started
 
     - name: Create and start container positions
       docker_container:
         name: dockerpositions
         image: alexyop/mypositions:latest
+        pull: yes
         ports:
           - "8899:8899"
         volumes:
@@ -113,6 +114,7 @@
       docker_container:
         name: dockercompte
         image: alexyop/compte:latest
+        pull: yes
         ports:
           - "8877:8877"
         volumes:
@@ -123,6 +125,7 @@
       docker_container:
         name: dockerportail
         image: alexyop/portail:latest
+        pull: yes
         ports:
           - "443:7777"
         volumes:
